@@ -8,3 +8,6 @@ fine tune prompts
 
 refactor to 2 choices, answer question or continue research
     remove skip to next question
+
+
+add sample har files from burp labs
