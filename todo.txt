@@ -1,6 +1,6 @@
 refactor
 
-max amount of research steps
+max & min amount of research steps
 
 custom questions via cmdline
 
