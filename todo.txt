@@ -5,6 +5,7 @@ max & min amount of research steps
 custom questions via cmdline
 
 fine tune prompts
+    test harness to fine tune prompt and score against runs using different models
 
 refactor to 2 choices, answer question or continue research
     remove skip to next question
