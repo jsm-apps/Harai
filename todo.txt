@@ -3,3 +3,8 @@ refactor
 max amount of research steps
 
 custom questions via cmdline
+
+fine tune prompts
+
+refactor to 2 choices, answer question or continue research
+    remove skip to next question
