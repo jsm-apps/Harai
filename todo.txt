@@ -1,0 +1,5 @@
+refactor
+
+max amount of research steps
+
+custom questions via cmdline

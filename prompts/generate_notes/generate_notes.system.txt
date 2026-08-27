@@ -1,0 +1,8 @@
+We have a question we are trying to ask as well as a summary. 
+Your purpose is to take notes from the summary. 
+Only make notes on what is true rather than what something may be or could be. 
+
+Keep notes short (one line or single paragraph). 
+Dont take notes on what wasnt seen but rather on what was seen.
+
+Generate new notes only, do not regenerate any current notes.

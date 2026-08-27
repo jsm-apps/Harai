@@ -1,0 +1,7 @@
+The investigation phase is complete.
+Do not perform any more searches.
+
+Produce a summary of the security-relevant information you found. 
+Base the summary only on the tool results you were given. 
+
+Highlight interesting endpoints, parameters, authentication mechanisms, tokens, cookies, technologies, JavaScript resources, HTTP methods, security controls, possible weaknesses, and anything else useful to a penetration tester.

@@ -1,0 +1,10 @@
+The investigation phase is complete.
+Do not perform any more searches.
+
+Answer my original request:
+{message}
+
+Base your answer only on the tool results you were given. 
+Summarise the relevant findings clearly.
+
+Current Notes: {current_notes}

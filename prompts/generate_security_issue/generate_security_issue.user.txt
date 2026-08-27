@@ -1,0 +1,8 @@
+INVESTIGATION QUESTION:
+{question}
+
+INVESTIGATION FINDINGS:
+{summary}
+
+NOTES:
+{current_notes}

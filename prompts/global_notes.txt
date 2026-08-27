@@ -1,0 +1,2 @@
+Global Notes:
+We passively inspect HTTP requests and responses, we can not issue any new HTTP requests.
