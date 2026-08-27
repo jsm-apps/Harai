@@ -122,7 +122,10 @@ class Harai():
                 logfile.write(seperator + "\n\n")
                 logfile.flush()
 
-                questions = ai.generate_investigation_questions(summary)
+                self.questions = ai.generate_investigation_questions(summary)
+                print("\nQUESTIONS\n")
+                print(self.questions)
+                print("\n\n")
                 self.do_next_question(ai)
         
 if __name__ == "__main__":
