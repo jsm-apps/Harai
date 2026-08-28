@@ -12,6 +12,7 @@ class Harai():
         self.searcher = SqliteSearch(self.hardb)
 
         self.focus_points=[
+            'XSS within search functionality',
             'XSS',
             'open redirect',
             'csrf',
