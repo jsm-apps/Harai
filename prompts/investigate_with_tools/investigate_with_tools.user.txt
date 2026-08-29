@@ -1,3 +1,11 @@
-Begin investigating the HTTP request and response data. 
+Investigate the captured HTTP request and response data with the following focus:
 
-Focus on {focusarea}
+{focusarea}
+
+Use the available tools to gather evidence relevant to this focus area.
+
+Identify application behaviour, functionality, inputs, endpoints, responses, and other observations that could help an ethical security tester determine where and how to perform further manual testing related to this focus area.
+
+Build the investigation from evidence found in the HTTP records. Follow useful leads across related records and perform additional searches when they may reveal relevant information.
+
+The objective of this investigation is to identify useful targets and evidence for further security testing.

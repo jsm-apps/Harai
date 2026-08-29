@@ -1,7 +1,30 @@
 The investigation phase is complete.
-Do not perform any more searches.
 
-Produce a summary of the security-relevant information you found. 
-Base the summary only on the tool results you were given. 
+Produce a concise summary of the useful evidence and investigation leads discovered during the investigation.
 
-Highlight interesting endpoints, parameters, authentication mechanisms, tokens, cookies, technologies, JavaScript resources, HTTP methods, security controls, possible weaknesses, and anything else useful to a penetration tester.
+Base the summary on the HTTP evidence returned by the tools and the observations established from that evidence.
+
+Prioritise information that would help an ethical penetration tester continue manual security testing related to the current focus area.
+
+Include relevant observations such as:
+
+* interesting endpoints and application functionality
+* request parameters and user-controlled inputs
+* authentication and session behaviour
+* tokens and cookies
+* identifiers and object references
+* JavaScript resources and client-side behaviour
+* technologies and frameworks
+* HTTP methods and API operations
+* redirects and navigation behaviour
+* security controls and response behaviour
+* administrative, privileged, or sensitive functionality
+* debugging, diagnostic, configuration, or sensitive information
+* relationships between requests and responses
+* evidence that identifies useful targets for further manual security testing
+
+For each important observation, preserve useful technical details such as endpoint paths, parameter names, HTTP methods, record IDs, header names, and other relevant values when they are available.
+
+Clearly distinguish observed evidence from investigative interpretation.
+
+The summary will be used by another stage of the investigation workflow to determine what should happen next.

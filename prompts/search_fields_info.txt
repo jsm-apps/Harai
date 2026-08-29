@@ -1,4 +1,6 @@
-When using the search tools, you may optionally restrict the search to a specific field.
+Search tools perform simple literal text searches against captured HTTP data.
+
+Use short search terms that are likely to appear exactly in the HTTP data.
 
 Available searchable fields:
 
@@ -17,92 +19,61 @@ Available searchable fields:
 * response_body
 * browser_error
 
-Use the most relevant field whenever possible to make searches more precise. If you are unsure which field contains the information, search without specifying a field.
+Select the most relevant field when the location of the information is known. Search across all fields when the location is uncertain.
 
-## Search behaviour
+Useful field selection:
 
-The `find` and `find_with_record_id` tools perform simple literal text searches.
+* URLs, endpoints and paths -> request_url
+* URL and query parameters -> request_params
+* Request headers and authorization headers -> request_headers
+* Request cookies -> request_cookies
+* Request content such as POST data, JSON and form data -> request_body
+* Response status codes -> response_status
+* Response headers -> response_headers
+* Response cookies -> response_cookies
+* Returned HTML, JSON, JavaScript and other content -> response_body
+* Browser and network failures -> browser_error
 
-For `textToFind`, provide a short piece of literal text that is likely to appear exactly in the HTTP data.
+## find
 
-Examples of useful search terms include:
+`find` starts a literal text search across the HTTP records.
 
-* `innerHTML`
-* `Authorization`
-* `access_token`
-* `/api/`
-* `application/json`
-* `document.write`
-* `location`
-* `password`
+Use `find` to discover HTTP records containing evidence relevant to the current investigation objective.
 
-When investigating a concept that could appear in several forms, perform multiple searches using individual literal terms.
+Choose literal search terms based on the investigation objective and information discovered during previous searches.
 
-For example, when investigating JavaScript DOM behaviour, useful separate searches could include `innerHTML`, `document.write`, `location`, and `eval`.
+When a concept may appear using several different terms, perform separate searches using individual literal terms.
 
-## `find`
+Review the returned snippets and record IDs to determine the next useful investigation step.
 
-The `find` tool searches for literal text across all HTTP records.
+## find_with_record_id
 
-Use `find` to discover relevant requests, responses, endpoints, parameters, headers, cookies, JavaScript, and other HTTP content.
+`find_with_record_id` starts a literal text search within one specific HTTP record.
 
-## `find_with_record_id`
+Use it when an interesting record has been identified and searching within that request or response can provide additional relevant evidence.
 
-The `find_with_record_id` tool performs a literal text search within one specific HTTP record.
-
-Use it when a previous search identifies an interesting record and you want to investigate that request and response further.
-
-When calling `find_with_record_id`, pass the target record ID using the parameter:
+Pass the `id` returned by a previous search result using the parameter named:
 
 `record_id`
 
-Take the `record_id` value from the `id` returned by a previous search result.
+Choose additional literal search terms based on the information already discovered about that record.
 
-For example, if a search result has an `id` of `10`, a follow-up search can use:
+## next
 
-* `textToFind`: `innerHTML`
-* `field`: `response_body`
-* `record_id`: `10`
+`next` returns the next page of results from the current `find` or `find_with_record_id` search.
 
-## Choosing a field
-
-Select fields according to the type of information being investigated:
-
-* URLs, endpoints or paths -> request_url
-* URL/query parameters -> request_params
-* Request headers -> request_headers
-* Authorization or authentication headers -> request_headers
-* Request cookies -> request_cookies
-* POST, JSON or form data -> request_body
-* HTTP response codes -> response_status
-* Response headers -> response_headers
-* Response cookies -> response_cookies
-* HTML, JSON, JavaScript or other returned content -> response_body
-* Failed browser or network requests -> browser_error
-
-When an interesting HTTP record is identified, use `find_with_record_id` for searches that relate specifically to that request or response.
-
-For example, if `find` identifies record ID `42` as interesting, use `find_with_record_id` with `record_id` set to `42` to investigate its headers, parameters, tokens, JavaScript, error messages, or response content.
-
-## `next`
-
-Search results may be paginated.
-
-The `next` tool returns the next page of results from the most recent `find` or `find_with_record_id` search.
-
-Review the current results before deciding whether the next page is useful.
+Use it when additional matches from the current search are likely to provide useful evidence.
 
 ## Search strategy
 
-Use this general investigation process:
+1. Identify what evidence would help answer the current investigation question.
+2. Choose a short literal search term likely to locate that evidence.
+3. Select the most relevant searchable field when known.
+4. Use `find` to discover matching HTTP records.
+5. Review the returned snippets and record IDs.
+6. Use `next` when additional matches from the current search are useful.
+7. Use `find_with_record_id` when an interesting record requires closer investigation.
+8. Choose further literal search terms from the evidence discovered.
+9. Continue following useful evidence relevant to the current investigation objective.
 
-1. Choose a short literal search term relevant to the investigation.
-2. Select the most appropriate searchable field when known.
-3. Use `find` to locate relevant HTTP records.
-4. Review the returned snippets and record IDs.
-5. Use `next` when additional results from the same search are useful.
-6. When a particular record becomes interesting, use `find_with_record_id` and pass its `id` as `record_id`.
-7. Perform additional literal searches within that record to understand the request and response.
-8. Continue with new literal search terms as new information is discovered.
-
-Use the searchable field names listed above when specifying a field.
+Use the searchable field names exactly as listed above when specifying a field.

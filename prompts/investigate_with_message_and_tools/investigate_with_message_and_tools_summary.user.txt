@@ -1,10 +1,23 @@
 The investigation phase is complete.
-Do not perform any more searches.
 
-Answer my original request:
+Produce an evidence-based summary for the following investigation question:
 {message}
 
-Base your answer only on the tool results you were given. 
-Summarise the relevant findings clearly.
+Use the HTTP evidence returned by the tools to explain what was discovered that is relevant to this question.
 
-Current Notes: {current_notes}
+Summarise:
+
+* the relevant observations
+* the HTTP records, endpoints, parameters, methods, headers, identifiers, or values involved
+* any relationships between requests and responses that help explain the observed behaviour
+* useful investigation leads supported by the available evidence
+* areas where the available HTTP evidence suggests further manual security testing would be valuable
+
+Preserve record IDs and other useful technical details when available so later investigation stages can return to the relevant HTTP traffic.
+
+Clearly distinguish between observed HTTP evidence and investigative interpretation.
+
+Use the current notes as additional investigation context:
+{current_notes}
+
+Produce a concise summary that can be used by the next stage of the investigation workflow.

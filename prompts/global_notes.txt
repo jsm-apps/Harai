@@ -1,2 +1,2 @@
-Global Notes:
-We passively inspect HTTP requests and responses, we can not issue any new HTTP requests.
+Investigation is based on passively captured HTTP requests and responses. Use the captured HTTP traffic and available search tools as the source of investigation evidence.
+
