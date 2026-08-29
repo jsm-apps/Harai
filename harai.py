@@ -12,20 +12,32 @@ class Harai():
         self.searcher = SqliteSearch(self.hardb)
         self.min_steps = 10
 
-        self.focus_points=[
-            'XSS within search functionality',
-            'XSS',
-            'open redirect',
-            'csrf',
-            'login',
-            'logout',
-            'onMessage',
-            'tokens',
-            'secrets',
-            'cloud resources',
-            'jsonp',
-            'callback params',
-            'reflected params'
+        self.focus_points = [
+            "Search functionality: identify search inputs, parameters, endpoints, reflected search terms, returned HTML, and client-side handling that would be useful for manual XSS testing.",
+
+            "Cross-site scripting (XSS): identify user-controlled inputs, reflected values, HTML or JavaScript contexts, DOM manipulation, and client-side data flows that would provide useful targets for manual XSS testing.",
+
+            "Open redirects: identify parameters, endpoints, authentication flows, and response behaviour that control redirect destinations or navigation targets.",
+
+            "Cross-site request forgery (CSRF): identify state-changing requests, their HTTP methods, authentication mechanisms, cookies, request parameters, and observable anti-CSRF controls.",
+
+            "Login functionality: identify login endpoints, authentication requests, credentials and parameters, tokens, cookies, redirects, error responses, and related authentication flows.",
+
+            "Logout functionality: identify logout endpoints, HTTP methods, session or token behaviour, redirects, and requests involved in ending an authenticated session.",
+
+            "Cross-window messaging: identify JavaScript using postMessage or message event handlers, message data processing, origin handling, and functionality influenced by received messages.",
+
+            "Tokens: identify authentication, session, API, access, refresh, reset, verification, and other security-relevant tokens together with where they are transmitted or returned.",
+
+            "Secrets and sensitive values: identify credentials, API keys, secret values, private configuration, connection information, and other sensitive data exposed within captured requests or responses.",
+
+            "Cloud resources: identify cloud service endpoints, storage resources, object URLs, cloud hostnames, resource identifiers, configuration, and references to cloud infrastructure.",
+
+            "JSONP: identify JavaScript or API responses using callback-based JSON delivery and parameters that influence the callback function name.",
+
+            "Callback parameters: identify parameters associated with callbacks, return destinations, redirect destinations, continuation URLs, and other application-controlled navigation or callback behaviour.",
+
+            "Reflected input: identify request parameters or other user-controlled values that appear in corresponding responses, preserving the parameter, endpoint, response context, and record ID where available."
         ]
 
         self.questions = []
