@@ -1,0 +1,6 @@
+ORIGINAL QUESTION:
+{question}
+
+
+CURRENT FINDINGS:
+{summary}

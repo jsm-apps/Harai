@@ -281,7 +281,31 @@ class LocalAI():
                 print("Invalid JSON returned by AI: {}".format(e))
                 print("Retrying...")
 
-
+    def generate_next_step(self, question, summary):
+            pu = PromptUtil()
+            system_prompt = pu.load_from_file(
+                "prompts/generate_next_step/generate_next_step.system.txt", 
+                global_notes=global_notes
+            )
+            user_prompt = pu.load_from_file(
+                "prompts/generate_next_step/generate_next_step.user.txt", 
+                question=question,
+                summary=summary
+            )
+    
+            messages = [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+            
+            while True:
+                try:
+                    response = ollama.chat(model=self.model, messages=messages, format="json", think=False)
+                    jsoncontent = json.loads(response["message"]["content"])
+                    return jsoncontent
+                except json.JSONDecodeError as e:
+                    print("Invalid JSON returned by AI: {}".format(e))
+                    print("Retrying...")
 
 
     def generate_security_issue(self, current_notes, question, summary):       

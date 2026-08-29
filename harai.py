@@ -10,6 +10,7 @@ class Harai():
         self.hardb = hardb
         self.model = model
         self.searcher = SqliteSearch(self.hardb)
+        self.min_steps = 10
 
         self.focus_points=[
             'XSS within search functionality',
@@ -37,9 +38,9 @@ class Harai():
         noterepo = Notes()
 
         question = self.questions.pop(0)
-        self.do_question(noterepo, ai, question)
+        self.do_question(0, noterepo, ai, question)
 
-    def do_question(self, noterepo, ai, question, investigation_objective = None):
+    def do_question(self, step_counter, noterepo, ai, question, investigation_objective = None):
         question_to_ask = ""
         if investigation_objective:
             question_to_ask = "Original question:\n"+question
@@ -71,8 +72,14 @@ class Harai():
         print("**** NOTES ****")
         print(notes_to_add)
         print("**** /NOTES ****\n\n")
-        
-        decision = ai.decide_next_step(question_to_ask, question_summary)
+
+        step_counter = step_counter + 1
+
+        decision= ""
+        if step_counter < self.min_steps:
+            decision = ai.generate_next_step(question_to_ask, question_summary)
+        else:
+            decision = ai.decide_next_step(question_to_ask, question_summary)
         print(decision)
 
         if decision["action"] == "WRITE_FINDING":
@@ -98,7 +105,7 @@ class Harai():
         
 
         if decision["action"] == "CONTINUE_RESEARCH":
-            self.do_question(noterepo, ai, question, decision["next_step"])
+            self.do_question(step_counter, noterepo, ai, question, decision["next_step"])
 
     def main(self):
         log_filename = "investigation.log"
