@@ -45,26 +45,33 @@ class SqliteSearch:
     def find_with_record_id(
         self,
         record_id,
-        textToFind,
+        textToFind=None,
         field=None
     ):
         """
         Search only a specific http_entries record.
 
+        If textToFind is omitted or empty, return a summary
+        of the specified record.
+
         Args:
             record_id:
-                ID of the http_entries record to search.
+                ID of the http_entries record.
 
             textToFind:
-                Text to search for.
+                Optional text to search for.
 
             field:
                 Optional field to search.
                 If None, all searchable fields are searched.
 
         Returns:
-            totalRecords, pagedResults
+            totalRecords, results
         """
+
+        if textToFind is None or not str(textToFind).strip():
+            return self._get_record_summary(record_id)
+
         return self._find(
             textToFind=textToFind,
             field=field,
@@ -257,3 +264,67 @@ class SqliteSearch:
         end = start + self.page_size
 
         return self.results[start:end]
+
+
+    def _get_record_summary(self, record_id):
+        """
+        Return basic information about a specific HTTP record.
+
+        Returns:
+            method
+            url
+            status
+            first 100 characters of response_body
+        """
+
+        self.results = []
+        self.current_page = 0
+
+        db = sqlite3.connect(self.database)
+        db.row_factory = sqlite3.Row
+
+        try:
+            cursor = db.execute(
+                """
+                SELECT
+                    id,
+                    har_index,
+                    request_method,
+                    request_url,
+                    response_status,
+                    response_body
+                FROM http_entries
+                WHERE id = ?
+                """,
+                (record_id,)
+            )
+
+            row = cursor.fetchone()
+
+        finally:
+            db.close()
+
+        if row is None:
+            return 0, {
+                "error": "Record ID {} not found.".format(record_id)
+            }
+
+        response_body = row["response_body"]
+
+        if response_body is None:
+            response_body = ""
+        else:
+            response_body = str(response_body)
+
+        result = {
+            "record_id": row["id"],
+            "har_index": row["har_index"],
+            "method": row["request_method"],
+            "url": row["request_url"],
+            "status": row["response_status"],
+            "response_body": response_body[:100]
+        }
+
+        self.results = [result]
+
+        return 1, self._get_page()
