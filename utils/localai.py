@@ -122,11 +122,12 @@ class LocalAI():
         
         return self.ollamautil.chat_with_text_response(messages)
 
-    def investigate_with_message_and_tools(self, current_notes, message, search_function, search_withid_function, next_function):
+    def investigate_with_message_and_tools(self, current_notes, message, search_function, search_withid_function, next_function, decode_jwt):
         functions = {
             search_function.__name__: search_function,
             search_withid_function.__name__: search_withid_function,
-            next_function.__name__: next_function
+            next_function.__name__: next_function,
+            decode_jwt.__name__: decode_jwt
         }
         
         pu = PromptUtil()

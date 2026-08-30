@@ -4,6 +4,7 @@ from utils.localai import LocalAI
 from utils.sqlitesearch import SqliteSearch
 from utils.issues import add_issue, list_issues, show_issue
 from utils.notes import Notes
+from utils.jwtutil import decode_jwt
 
 class Harai():
     def __init__(self, hardb, model, minsteps, maxsteps):
@@ -71,7 +72,8 @@ class Harai():
             question_to_ask, 
             self.searcher.find, 
             self.searcher.find_with_record_id, 
-            self.searcher.next
+            self.searcher.next,
+            decode_jwt
         )
         print("Question Summary: "+question_summary)
         print("-" * 80)
