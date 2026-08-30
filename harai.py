@@ -88,11 +88,11 @@ class Harai():
 
         step_counter = step_counter + 1
 
-        decision= ""
+        decision= {}
         if step_counter < self.min_steps:
             decision = ai.generate_next_step(question_to_ask, question_summary)
         elif step_counter >= self.max_steps:
-            decision = "NEXT_QUESTION"
+            decision["action"] = "NEXT_QUESTION"
         else:
             decision = ai.decide_next_step(question_to_ask, question_summary)
         print(decision)
