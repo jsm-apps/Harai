@@ -322,7 +322,7 @@ class SqliteSearch:
             "method": row["request_method"],
             "url": row["request_url"],
             "status": row["response_status"],
-            "response_body": response_body[:100]
+            "response_body_snippet": response_body[:100]
         }
 
         self.results = [result]
