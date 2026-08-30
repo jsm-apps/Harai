@@ -6,11 +6,12 @@ from utils.issues import add_issue, list_issues, show_issue
 from utils.notes import Notes
 
 class Harai():
-    def __init__(self, hardb, model):
+    def __init__(self, hardb, model, minsteps, maxsteps):
         self.hardb = hardb
         self.model = model
         self.searcher = SqliteSearch(self.hardb)
-        self.min_steps = 10
+        self.min_steps = minsteps
+        self.max_steps = maxsteps
 
         self.focus_points = [
             "Search functionality: identify search inputs, parameters, endpoints, reflected search terms, returned HTML, and client-side handling that would be useful for manual XSS testing.",
@@ -90,6 +91,8 @@ class Harai():
         decision= ""
         if step_counter < self.min_steps:
             decision = ai.generate_next_step(question_to_ask, question_summary)
+        elif step_counter >= self.max_steps:
+            decision = "NEXT_QUESTION"
         else:
             decision = ai.decide_next_step(question_to_ask, question_summary)
         print(decision)
@@ -166,7 +169,21 @@ if __name__ == "__main__":
         help="Ollama model to use (default: qwen3.5:latest)"
     )
 
+    parser.add_argument(
+        "--min-steps",
+        type=int,
+        default=3,
+        help="Minimum investigation steps (default: 3)"
+    )
+
+    parser.add_argument(
+        "--max-steps",
+        type=int,
+        default=10,
+        help="Maximum investigation steps (default: 10)"
+    )
+
     args = parser.parse_args()
 
-    app = Harai(args.hardb, args.model)
+    app = Harai(args.hardb, args.model, args.min_steps, args.max_steps)
     app.main()
