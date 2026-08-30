@@ -91,11 +91,13 @@ class Harai():
         decision= {}
         if step_counter < self.min_steps:
             decision = ai.generate_next_step(question_to_ask, question_summary)
-        elif step_counter >= self.max_steps:
-            decision["action"] = "NEXT_QUESTION"
         else:
             decision = ai.decide_next_step(question_to_ask, question_summary)
         print(decision)
+
+        # we may decide to write a finding, so force next question only if action returned is continue research when we have reached max steps
+        if step_counter >= self.max_steps and decision["action"] == "CONTINUE_RESEARCH":
+            decision["action"] = "NEXT_QUESTION"
 
         if decision["action"] == "WRITE_FINDING":
             print("=" * 80)
