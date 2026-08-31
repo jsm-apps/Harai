@@ -211,13 +211,63 @@ class IssueViewer:
             fill=tk.Y
         )
 
+
+        # Notes
+        ttk.Label(
+            detail_frame,
+            text="Notes:"
+        ).grid(
+            row=3,
+            column=0,
+            sticky="nw",
+            padx=5,
+            pady=5
+        )
+
+        notes_container = ttk.Frame(detail_frame)
+        notes_container.grid(
+            row=3,
+            column=1,
+            sticky="nsew",
+            padx=5,
+            pady=5
+        )
+
+        self.notes_text = self.create_readonly_text(
+            notes_container,
+            height=12,
+            wrap=tk.WORD
+        )
+
+        notes_scrollbar = ttk.Scrollbar(
+            notes_container,
+            orient=tk.VERTICAL,
+            command=self.notes_text.yview
+        )
+
+        self.notes_text.configure(
+            yscrollcommand=notes_scrollbar.set
+        )
+
+        self.notes_text.pack(
+            side=tk.LEFT,
+            fill=tk.BOTH,
+            expand=True
+        )
+
+        notes_scrollbar.pack(
+            side=tk.RIGHT,
+            fill=tk.Y
+        )
+
+
         detail_frame.columnconfigure(
             1,
             weight=1
         )
 
         detail_frame.rowconfigure(
-            3,
+            4,
             weight=1
         )
 
@@ -366,7 +416,8 @@ class IssueViewer:
                 id,
                 title,
                 risk_rating,
-                details
+                details,
+                notes
             FROM issues
             WHERE id = ?
         """
@@ -384,7 +435,7 @@ class IssueViewer:
         if issue is None:
             return
 
-        issue_id, title, risk_rating, details = issue
+        issue_id, title, risk_rating, details, notes = issue
 
         self.set_text(
             self.id_text,
@@ -404,6 +455,11 @@ class IssueViewer:
         self.set_text(
             self.details_text,
             details
+        )
+
+        self.set_text(
+            self.notes_text,
+            notes
         )
 
 
