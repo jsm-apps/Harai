@@ -17,7 +17,8 @@ def init_db():
             id TEXT PRIMARY KEY,
             title TEXT NOT NULL,
             risk_rating INTEGER NOT NULL,
-            details TEXT NOT NULL
+            details TEXT NOT NULL,
+            notes TEXT NOT NULL
         )
         """
     )
@@ -40,7 +41,8 @@ def list_issues():
             id,
             title,
             risk_rating,
-            details
+            details,
+            notes
         FROM issues
         ORDER BY risk_rating DESC
         """
@@ -72,7 +74,8 @@ def show_issue(issue_id):
             id,
             title,
             risk_rating,
-            details
+            details,
+            notes
         FROM issues
         WHERE id = ?
         """,
@@ -89,7 +92,7 @@ def show_issue(issue_id):
     return dict(row)
 
 
-def add_issue(title, risk_rating, details):
+def add_issue(title, risk_rating, details, notes):
     """
     Add a new security issue.
 
@@ -107,6 +110,9 @@ def add_issue(title, risk_rating, details):
 
     if details is None or not details.strip():
         raise ValueError("details cannot be empty")
+
+    if notes is None or not notes.strip():
+            raise ValueError("notes cannot be empty")
 
     try:
         risk_rating = int(risk_rating)
@@ -132,15 +138,17 @@ def add_issue(title, risk_rating, details):
             id,
             title,
             risk_rating,
-            details
+            details,
+            notes
         )
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?)
         """,
         (
             issue_id,
             title.strip(),
             risk_rating,
-            details.strip()
+            details.strip(),
+            notes.strip()
         )
     )
 
@@ -151,7 +159,8 @@ def add_issue(title, risk_rating, details):
         "id": issue_id,
         "title": title.strip(),
         "risk_rating": risk_rating,
-        "details": details.strip()
+        "details": details.strip(),
+        "notes": notes.strip()
     }
 
 

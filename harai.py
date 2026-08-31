@@ -112,7 +112,7 @@ class Harai():
 
             issue = ai.generate_security_issue(current_notes, question_to_ask, question_summary)
 
-            saved_issue = add_issue(issue["title"], issue["risk_rating"], issue["details"])
+            saved_issue = add_issue(issue["title"], issue["risk_rating"], issue["details"], current_notes)
 
             print("Security issue created:")
             print("ID:    {}".format(saved_issue["id"]))
