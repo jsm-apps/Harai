@@ -44,6 +44,9 @@ class Harai():
 
         self.questions = []
 
+    def set_focus(self, focus):
+        self.focus_points = [focus]
+
     def do_next_question(self, ai):
         if not self.questions:
             print("No more questions.")
@@ -190,7 +193,16 @@ if __name__ == "__main__":
         help="Maximum investigation steps (default: 10)"
     )
 
+    parser.add_argument(
+        "--focus",
+        type=str,
+        default=None,
+        help="Focus of the investigation (optional)"
+    )
+
     args = parser.parse_args()
 
     app = Harai(args.hardb, args.model, args.min_steps, args.max_steps)
+    if args.focus:
+        app.set_focus(args.focus)
     app.main()
