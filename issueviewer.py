@@ -217,7 +217,7 @@ class IssueViewer:
             detail_frame,
             text="Notes:"
         ).grid(
-            row=3,
+            row=4,
             column=0,
             sticky="nw",
             padx=5,
@@ -226,7 +226,7 @@ class IssueViewer:
 
         notes_container = ttk.Frame(detail_frame)
         notes_container.grid(
-            row=3,
+            row=4,
             column=1,
             sticky="nsew",
             padx=5,
